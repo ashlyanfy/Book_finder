@@ -1,5 +1,8 @@
 import os
 import sys
+import threading
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
 import django
 import telebot
 from telebot.types import Message, ReplyKeyboardMarkup, KeyboardButton
@@ -107,7 +110,26 @@ def handle_text(message: Message) -> None:
     ), status='support')
 
 
+class _HealthHandler(BaseHTTPRequestHandler):
+    """Минимальный health-endpoint — нужен Render'у, чтобы не убить сервис."""
+
+    def do_GET(self):
+        self.send_response(200)
+        self.send_header('Content-Type', 'text/plain')
+        self.end_headers()
+        self.wfile.write(b'ok')
+
+    def log_message(self, *_):
+        pass
+
+
+def _start_health_server():
+    port = int(os.getenv('PORT', '8080'))
+    HTTPServer(('0.0.0.0', port), _HealthHandler).serve_forever()
+
+
 if __name__ == '__main__':
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+    threading.Thread(target=_start_health_server, daemon=True).start()
     print('AstroBook started...')
     bot.infinity_polling(timeout=10, long_polling_timeout=5)
