@@ -1,0 +1,47 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}AstroBook — каталог{% endblock %}
+{% block body_class %}page-books{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <h1 data-i18n="books_title">Книги по темам</h1>
+    <p class="lead" data-i18n="books_lead">Выберите тему или пролистайте все подборки сразу.</p>
+
+    <div class="filter-bar">
+      <a href="{% url 'catalog:books' %}"
+         class="filter-chip {% if not selected %}is-active{% endif %}"
+         data-i18n="filter_all">Все</a>
+      {% for t in topics %}
+      <a href="{% url 'catalog:books' %}?topic={{ t.key }}"
+         class="filter-chip {% if selected == t.key %}is-active{% endif %}"
+         data-i18n="topic_{{ t.key }}">{{ t.title }}</a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    {% for s in sections %}
+    <div class="topic-section">
+      <h2 class="topic-title" data-i18n="topic_{{ s.key }}">{{ s.title }}</h2>
+      <div class="books-grid">
+        {% for book in s.books %}
+        <article class="book-card">
+          <h3>{{ book.title }}</h3>
+          <p class="book-author">{{ book.author }}</p>
+          <p class="book-desc">{{ book.desc }}</p>
+          <a href="{{ book.link }}" target="_blank" rel="noopener"
+             class="book-link" data-i18n="book_link">Читать</a>
+        </article>
+        {% endfor %}
+      </div>
+    </div>
+    {% empty %}
+    <p class="empty" data-i18n="empty_topic">По выбранной теме пока ничего нет.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

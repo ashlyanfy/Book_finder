@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>{% block title %}AstroBook{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'catalog/css/style.css' %}">
+  {% block head %}{% endblock %}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+  <header class="site-header">
+    <a href="{% url 'catalog:index' %}" class="logo">
+      <img src="{% static 'catalog/textures/jupiter_logo.png' %}" alt="" class="logo-mark">
+      <span class="logo-text">AstroBook</span>
+    </a>
+
+    <button class="nav-toggle" aria-label="Меню" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <nav class="site-nav">
+      <a href="{% url 'catalog:index' %}"     data-i18n="nav_home">Главная</a>
+      <a href="{% url 'catalog:books' %}"     data-i18n="nav_catalog">Каталог</a>
+      <a href="{% url 'catalog:dashboard' %}" data-i18n="nav_dashboard">Панель</a>
+
+      <div class="lang-switch" role="group" aria-label="Язык">
+        <button type="button" data-lang="ru">RU</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+
+      <a href="https://t.me/books1_helper_bot" target="_blank" rel="noopener"
+         class="nav-cta" data-i18n="nav_cta">Открыть бота</a>
+    </nav>
+  </header>
+
+  {% block content %}{% endblock %}
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div data-i18n="footer_copy">© AstroBook · подбор книг</div>
+      <div data-i18n="footer_made">Django + Three.js</div>
+    </div>
+  </footer>
+
+  <script src="{% static 'catalog/js/i18n.js' %}"></script>
+  <script>
+    (function () {
+      const btn = document.querySelector('.nav-toggle');
+      const nav = document.querySelector('.site-nav');
+      btn.addEventListener('click', () => {
+        const open = nav.classList.toggle('is-open');
+        btn.classList.toggle('is-open', open);
+        btn.setAttribute('aria-expanded', open);
+      });
+    })();
+  </script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

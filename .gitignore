@@ -1,0 +1,41 @@
+# ── Python ──────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+
+# ── Виртуальные окружения ───────────────────────────
+venv/
+env/
+.venv/
+.env-venv/
+
+# ── Django ──────────────────────────────────────────
+db.sqlite3
+db.sqlite3-journal
+*.sqlite3
+media/
+staticfiles/
+*.log
+
+# ── Чувствительные данные ───────────────────────────
+.env
+.env.*
+!.env.example
+secrets.json
+*.pem
+*.key
+
+# ── Claude Code ─────────────────────────────────────
+.claude/
+
+# ── IDE ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── ОС ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini

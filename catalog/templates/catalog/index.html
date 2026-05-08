@@ -1,0 +1,85 @@
+{% extends 'catalog/base.html' %}
+{% load static %}
+
+{% block title %}AstroBook{% endblock %}
+{% block body_class %}page-index{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <canvas id="space-canvas" aria-hidden="true"></canvas>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <h1>
+      <span data-i18n="hero_title_1">Книги, которые</span>
+      <span class="accent" data-i18n="hero_title_2">расширяют горизонт</span>
+    </h1>
+    <p class="lead" data-i18n="hero_lead">
+      Подбираем литературу по астрофизике, философии, биологии и не только.
+      Спросите бота — или загляните в каталог прямо сейчас.
+    </p>
+    <div class="hero-actions">
+      <a href="{% url 'catalog:books' %}" class="btn btn-primary" data-i18n="hero_cta_primary">Открыть каталог</a>
+      <a href="https://t.me/books1_helper_bot" target="_blank" rel="noopener"
+         class="btn btn-ghost" data-i18n="hero_cta_secondary">Запустить бота</a>
+    </div>
+
+    <div class="hero-stats">
+      <div><strong>{{ topics|length }}</strong><span data-i18n="stat_topics">тем</span></div>
+      <div><strong>30+</strong><span data-i18n="stat_books">книг</span></div>
+      <div><strong>24/7</strong><span data-i18n="stat_247">в Telegram</span></div>
+    </div>
+  </div>
+
+  <div class="hero-hint" data-i18n="hero_hint">Перетащите Юпитер, чтобы покрутить</div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <header class="section-head">
+      <h2 data-i18n="section_topics_title">Темы каталога</h2>
+      <p data-i18n="section_topics_lead">Выберите направление — мы подскажем книги по нему.</p>
+    </header>
+
+    <div class="topics-grid">
+      {% for t in topics %}
+      <a href="{% url 'catalog:books' %}?topic={{ t.key }}" class="topic-card">
+        <h3 data-i18n="topic_{{ t.key }}">{{ t.title }}</h3>
+        <p>{{ t.count }} <span data-i18n="stat_books">книг</span></p>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="container features">
+    <div class="feature">
+      <h3 data-i18n="feature_bot_title">Бот в Telegram</h3>
+      <p data-i18n="feature_bot_text">Напишите тему — получите подборку книг с описанием и ссылкой.</p>
+    </div>
+    <div class="feature">
+      <h3 data-i18n="feature_site_title">Каталог на сайте</h3>
+      <p data-i18n="feature_site_text">Все темы в одном месте, удобный фильтр и быстрый просмотр.</p>
+    </div>
+    <div class="feature">
+      <h3 data-i18n="feature_stats_title">Аналитика запросов</h3>
+      <p data-i18n="feature_stats_text">В панели управления видно, что ищут пользователи и какие темы в топе.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script type="importmap">
+{ "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js" } }
+</script>
+<script type="module">
+  window.ASSETS = {
+    jupiter: "{% static 'catalog/textures/jupiter.jpg' %}",
+    moon:    "{% static 'catalog/textures/moon.jpg' %}",
+    stars:   "{% static 'catalog/textures/stars.jpg' %}"
+  };
+</script>
+<script type="module" src="{% static 'catalog/js/scene.js' %}"></script>
+{% endblock %}

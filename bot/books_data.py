@@ -1,226 +1,150 @@
-# Каталог книг по темам. Каждая книга содержит название, автора и ссылку.
+# Каталог книг по теме космоса и астрономии — источник для бота и сайта.
 
 BOOKS_CATALOG = {
     'астрофизика': [
         {
             'title':  'Краткая история времени',
             'author': 'Стивен Хокинг',
-            'link':   'https://www.litres.ru/stiven-hoking/kratkaya-istoriya-vremeni/',
-            'desc':   'Классика популярной науки — от Большого взрыва до чёрных дыр.'
+            'link':   'https://loveread.ec/book-comments.php?book=73472',
+            'desc':   'Классика популярной науки — от Большого взрыва до чёрных дыр.',
         },
         {
             'title':  'Астрофизика с высокой скоростью',
             'author': 'Нил Деграсс Тайсон',
-            'link':   'https://www.litres.ru/nil-degrass-tajson/astrofizika-s-vysokoy-skorostyu/',
-            'desc':   'Вся астрофизика в одной небольшой и увлекательной книге.'
-        },
-        {
-            'title':  'Смерть звезды и рождение чёрной дыры',
-            'author': 'Игорь Новиков',
-            'link':   'https://www.ozon.ru/product/smert-zvezdy-i-rozhdenie-chernoy-dyry/',
-            'desc':   'Подробный разбор эволюции звёзд от российского астрофизика.'
-        },
-    ],
-    'физика': [
-        {
-            'title':  'Фейнмановские лекции по физике',
-            'author': 'Ричард Фейнман',
-            'link':   'https://www.litres.ru/richard-feynman/feymannovskie-lekcii-po-fizike/',
-            'desc':   'Легендарный курс лекций — обязательное чтение для каждого физика.'
-        },
-        {
-            'title':  'Шесть лёгких кусочков',
-            'author': 'Ричард Фейнман',
-            'link':   'https://www.litres.ru/richard-feynman/shest-lyogkih-kusochkov/',
-            'desc':   'Самые доступные главы из лекций Фейнмана для широкой аудитории.'
+            'link':   'https://loveread.ec/book-comments.php?book=74153',
+            'desc':   'Вся астрофизика в одной небольшой и увлекательной книге.',
         },
         {
             'title':  'Элегантная вселенная',
             'author': 'Брайан Грин',
-            'link':   'https://www.litres.ru/brayan-grin/elegantnaya-vselennaya/',
-            'desc':   'Теория суперструн и скрытые измерения пространства-времени.'
+            'link':   'https://litlife.club/books/11038/read?page=1',
+            'desc':   'Теория суперструн и скрытые измерения пространства-времени.',
         },
     ],
-    'математика': [
+    'космология': [
         {
-            'title':  'Математик читает газету',
-            'author': 'Джон Allen Paulos',
-            'link':   'https://www.ozon.ru/product/matematik-chitaet-gazetu/',
-            'desc':   'Как математическое мышление помогает понять реальный мир.'
+            'title':  'Высший замысел',
+            'author': 'Стивен Хокинг, Леонард Млодинов',
+            'link':   'https://loveread.ec/book-comments.php?book=73085',
+            'desc':   'Современный взгляд на устройство и происхождение Вселенной.',
         },
         {
-            'title':  'Загадка Ферма',
-            'author': 'Саймон Сингх',
-            'link':   'https://www.litres.ru/sajmon-sing/zagadka-ferma/',
-            'desc':   'История о 358-летней математической задаче и её решении.'
+            'title':  'Параллельные миры',
+            'author': 'Митио Каку',
+            'link':   'https://loveread.ec/contents.php?id=73078',
+            'desc':   'Мультивселенная, дополнительные измерения и будущее космоса.',
         },
         {
-            'title':  'Как решать задачи',
-            'author': 'Дьёрдь Пойа',
-            'link':   'https://www.ozon.ru/product/kak-reshat-zadachu/',
-            'desc':   'Классическое руководство по математическому мышлению.'
-        },
-    ],
-    'программирование': [
-        {
-            'title':  'Чистый код',
-            'author': 'Роберт Мартин',
-            'link':   'https://www.litres.ru/robert-martin/chistyy-kod/',
-            'desc':   'Как писать понятный, поддерживаемый и профессиональный код.'
-        },
-        {
-            'title':  'Python — изучаем язык программирования',
-            'author': 'Эрик Мэтиз',
-            'link':   'https://www.litres.ru/erik-metiz/python-izuchaem-yazyk-programmirovaniya/',
-            'desc':   'Лучший практический учебник по Python для начинающих.'
-        },
-        {
-            'title':  'Алгоритмы: построение и анализ',
-            'author': 'Кормен, Лейзерсон, Ривест, Штайн',
-            'link':   'https://www.ozon.ru/product/algoritmy-postroenie-i-analiz/',
-            'desc':   'Фундаментальный учебник по алгоритмам — библия программиста.'
+            'title':  'Первые три минуты',
+            'author': 'Стивен Вайнберг',
+            'link':   'https://loveread.ec/book-comments.php?book=87281',
+            'desc':   'Классическое описание ранней Вселенной от нобелевского лауреата.',
         },
     ],
-    'история': [
+    'астрономия': [
         {
-            'title':  'Sapiens: краткая история человечества',
-            'author': 'Юваль Ной Харари',
-            'link':   'https://www.litres.ru/yuval-noy-harari/sapiens-kratkaya-istoriya-chelovechestva/',
-            'desc':   'Как Homo sapiens завоевал планету — от каменного века до наших дней.'
+            'title':  'Космос',
+            'author': 'Карл Саган',
+            'link':   'https://loveread.ec/book-comments.php?book=73378',
+            'desc':   'Великая книга о месте человека во Вселенной.',
         },
         {
-            'title':  'Гибель Российской Империи',
-            'author': 'Мартин Сиксмит',
-            'link':   'https://www.ozon.ru/product/gibel-rossiyskoy-imperii/',
-            'desc':   'Подробная история заката Российской Империи и революции 1917 года.'
+            'title':  'Голубая точка. Космическое будущее человечества',
+            'author': 'Карл Саган',
+            'link':   'https://loveread.ec/book-comments.php?book=73380',
+            'desc':   'Размышления о Земле как «бледной голубой точке» в космосе.',
         },
         {
-            'title':  'Краткая история почти всего на свете',
-            'author': 'Билл Брайсон',
-            'link':   'https://www.litres.ru/bill-brajson/kratkaya-istoriya-pochti-vsego-na-svete/',
-            'desc':   'Занимательный научно-популярный взгляд на историю Вселенной и жизни.'
-        },
-    ],
-    'психология': [
-        {
-            'title':  'Думай медленно... решай быстро',
-            'author': 'Даниэль Канеман',
-            'link':   'https://www.litres.ru/daniel-kaneman/dumay-medlenno-reshay-bystro/',
-            'desc':   'Нобелевский лауреат о двух системах нашего мышления.'
-        },
-        {
-            'title':  'Влияние: психология убеждения',
-            'author': 'Роберт Чалдини',
-            'link':   'https://www.litres.ru/robert-chaldini/vliyanie-psihologiya-ubezhdeniya/',
-            'desc':   'Шесть принципов, которые управляют нашими решениями.'
-        },
-        {
-            'title':  'Человек в поисках смысла',
-            'author': 'Виктор Франкл',
-            'link':   'https://www.litres.ru/viktor-frankl/chelovek-v-poiskah-smysla/',
-            'desc':   'Психиатр о выживании в концлагере и поиске смысла жизни.'
+            'title':  'Очерки о Вселенной',
+            'author': 'Иосиф Шкловский',
+            'link':   'https://litlife.club/books/99100/read?page=1',
+            'desc':   'Классический советский научпоп от выдающегося астрофизика.',
         },
     ],
-    'философия': [
+    'чёрные дыры': [
         {
-            'title':  'Мир как воля и представление',
-            'author': 'Артур Шопенгауэр',
-            'link':   'https://www.litres.ru/artur-shopengauer/mir-kak-volya-i-predstavlenie/',
-            'desc':   'Главный труд великого немецкого пессимиста.'
+            'title':  'Чёрные дыры и складки времени',
+            'author': 'Кип Торн',
+            'link':   'https://litlife.club/books/265797/read',
+            'desc':   'История исследования чёрных дыр от автора Interstellar.',
         },
         {
-            'title':  'По ту сторону добра и зла',
-            'author': 'Фридрих Ницше',
-            'link':   'https://www.litres.ru/fridrih-nicshe/po-tu-storonu-dobra-i-zla/',
-            'desc':   'Критика прежней философской морали и новые ценности.'
+            'title':  'Природа пространства и времени',
+            'author': 'Стивен Хокинг, Роджер Пенроуз',
+            'link':   'https://eanbur.unatlib.ru/items/59a1effa-9876-4076-ae81-c7ee337cab9e',
+            'desc':   'Диалог двух гигантов о квантовой гравитации и сингулярностях.',
         },
         {
-            'title':  'Государство',
-            'author': 'Платон',
-            'link':   'https://www.litres.ru/platon/gosudarstvo/',
-            'desc':   'Диалог об идеальном государстве, справедливости и душе.'
+            'title':  'Смерть звезды и рождение чёрной дыры',
+            'author': 'Игорь Новиков',
+            'link':   'https://libcat.ru/knigi/nauka-i-obrazovanie/prochaya-nauchnaya-literatura/220390-igor-novikov-chyornye-dyry-i-vselennaya.html',
+            'desc':   'Подробный разбор эволюции звёзд от российского астрофизика.',
         },
     ],
-    'биология': [
+    'космонавтика': [
         {
-            'title':  'Эгоистичный ген',
-            'author': 'Ричард Докинз',
-            'link':   'https://www.litres.ru/richard-dokins/egoistichnyy-gen/',
-            'desc':   'Революционный взгляд на эволюцию с точки зрения генов.'
+            'title':  'Несущий огонь',
+            'author': 'Майкл Коллинз',
+            'link':   'https://www.livelib.ru/book/1001299244-carrying-the-fire-an-astronauts-journey-majkl-kollinz',
+            'desc':   'Воспоминания пилота командного модуля «Аполлон-11».',
         },
         {
-            'title':  'Жизнь на скорости света',
-            'author': 'Крейг Вентер',
-            'link':   'https://www.litres.ru/kreyg-venter/zhizn-na-skorosti-sveta/',
-            'desc':   'Синтетическая биология и будущее генной инженерии.'
+            'title':  'Дорога в космос',
+            'author': 'Юрий Гагарин',
+            'link':   'https://epizodsspace.airbase.ru/bibl/gagarin/doroga/gagarin-doroga_v_kosmos-61.pdf',
+            'desc':   'Мемуары первого человека, побывавшего в космосе.',
         },
         {
-            'title':  'Происхождение видов',
-            'author': 'Чарльз Дарвин',
-            'link':   'https://www.litres.ru/charlz-darvin/proishozhdenie-vidov/',
-            'desc':   'Основополагающий труд — теория эволюции путём естественного отбора.'
+            'title':  'Руководство астронавта по жизни на Земле',
+            'author': 'Крис Хэдфилд',
+            'link':   'https://loveread.ec/contents.php?id=45849',
+            'desc':   'Канадский астронавт о жизни, работе и приоритетах в космосе.',
         },
     ],
 }
 
-# Синонимы и альтернативные написания тем
+# Синонимы — пользовательский ввод → ключ темы.
 TOPIC_ALIASES = {
-    'астро':           'астрофизика',
-    'космос':          'астрофизика',
-    'звёзды':          'астрофизика',
-    'звезды':          'астрофизика',
-    'вселенная':       'астрофизика',
-    'физ':             'физика',
-    'квантовая':       'физика',
-    'мат':             'математика',
-    'математ':         'математика',
-    'прог':            'программирование',
-    'python':          'программирование',
-    'код':             'программирование',
-    'айти':            'программирование',
-    'ит':              'программирование',
-    'ист':             'история',
-    'псих':            'психология',
-    'мышление':        'психология',
-    'фил':             'философия',
-    'био':             'биология',
-    'эволюция':        'биология',
-    'генетика':        'биология',
+    'астро':       'астрофизика',
+    'космос':      'астрономия',
+    'звёзды':      'астрономия',
+    'звезды':      'астрономия',
+    'планеты':     'астрономия',
+    'вселенная':   'космология',
+    'мультивселенная': 'космология',
+    'большой взрыв':   'космология',
+    'дыр':         'чёрные дыры',
+    'дыры':        'чёрные дыры',
+    'космонавт':   'космонавтика',
+    'астронавт':   'космонавтика',
+    'гагарин':     'космонавтика',
+    'аполлон':     'космонавтика',
 }
 
 
 def find_topic(user_input: str) -> str | None:
-    """
-    Ищет тему по тексту пользователя.
-    Возвращает ключ из BOOKS_CATALOG или None.
-    """
+    """Ищет тему по тексту пользователя."""
     text = user_input.lower().strip()
-
-    # Прямое совпадение с темой
     for topic in BOOKS_CATALOG:
         if topic in text:
             return topic
-
-    # Совпадение с псевдонимом
     for alias, topic in TOPIC_ALIASES.items():
         if alias in text:
             return topic
-
     return None
 
 
 def format_book_list(topic: str) -> str:
-    """Форматирует список книг по теме в красивый текст для Telegram."""
+    """Форматирует список книг по теме для Telegram."""
     books = BOOKS_CATALOG.get(topic, [])
     if not books:
         return ''
-
-    lines = [f'📚 *Книги по теме: {topic.capitalize()}*\n']
+    lines = [f'*Книги по теме: {topic.capitalize()}*\n']
     for i, book in enumerate(books, start=1):
         lines.append(
             f'*{i}. {book["title"]}*\n'
-            f'✍️ Автор: {book["author"]}\n'
-            f'📖 {book["desc"]}\n'
-            f'🔗 [Читать / купить]({book["link"]})\n'
+            f'Автор: {book["author"]}\n'
+            f'{book["desc"]}\n'
+            f'[Читать / купить]({book["link"]})\n'
         )
     return '\n'.join(lines)

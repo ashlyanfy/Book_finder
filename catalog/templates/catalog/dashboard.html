@@ -1,0 +1,51 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}AstroBook — панель{% endblock %}
+{% block body_class %}page-dashboard{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <h1 data-i18n="dashboard_title">Панель управления</h1>
+    <p class="lead" data-i18n="dashboard_lead">Статистика по запросам пользователей в Telegram-боте.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card"><strong>{{ total }}</strong><span data-i18n="dash_total">всего запросов</span></div>
+      <div class="stat-card"><strong>{{ unique_users }}</strong><span data-i18n="dash_users">уникальных пользователей</span></div>
+      <div class="stat-card"><strong>{{ answered }}</strong><span data-i18n="dash_answered">отвечено</span></div>
+      <div class="stat-card"><strong>{{ pending }}</strong><span data-i18n="dash_pending">ожидают</span></div>
+      <div class="stat-card"><strong>{{ support }}</strong><span data-i18n="dash_support">в поддержке</span></div>
+    </div>
+
+    <h2 class="section-title" data-i18n="dash_recent">Последние запросы</h2>
+    <div class="table-wrap">
+      <table class="queries-table">
+        <thead>
+          <tr>
+            <th data-i18n="th_when">Когда</th>
+            <th data-i18n="th_user">Пользователь</th>
+            <th data-i18n="th_query">Запрос</th>
+            <th data-i18n="th_status">Статус</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for q in queries %}
+          <tr>
+            <td>{{ q.created_at|date:"d.m.Y H:i" }}</td>
+            <td>{{ q.username|default:q.first_name|default:q.telegram_id }}</td>
+            <td class="query-text">{{ q.query_text }}</td>
+            <td><span class="badge badge-{{ q.status }}">{{ q.get_status_display }}</span></td>
+          </tr>
+          {% empty %}
+          <tr><td colspan="4" class="empty" data-i18n="empty_queries">Запросов пока нет.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+{% endblock %}

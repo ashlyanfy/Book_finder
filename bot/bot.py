@@ -3,6 +3,7 @@ import sys
 import django
 import telebot
 from telebot.types import Message, ReplyKeyboardMarkup, KeyboardButton
+from dotenv import load_dotenv
 
 # ── Настройка Django до первого импорта моделей ──────────────────────────────
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -11,13 +12,8 @@ if BASE_DIR not in sys.path:
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'book_finder.settings')
 django.setup()
 
-from catalog.models import UserQuery          # noqa: E402  (после django.setup)
-from books_data import (                      # noqa: E402
-    BOOKS_CATALOG,
-    find_topic,
-    format_book_list,
-)
-from dotenv import load_dotenv
+from catalog.models import UserQuery                                  # noqa: E402
+from books_data import BOOKS_CATALOG, find_topic, format_book_list    # noqa: E402
 
 load_dotenv()
 
@@ -27,119 +23,91 @@ if not BOT_TOKEN:
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# ── Вспомогательные функции ───────────────────────────────────────────────────
+BTN_HELP   = 'Помощь'
+BTN_TOPICS = 'Все темы'
 
-def save_query(message: Message, bot_response: str, status: str = 'answered') -> None:
-    """Сохраняет запрос пользователя и ответ бота в базу данных."""
+
+def save_query(message: Message, response: str, status: str = 'answered') -> None:
     UserQuery.objects.create(
         telegram_id=message.from_user.id,
         username=message.from_user.username or '',
         first_name=message.from_user.first_name or '',
         query_text=message.text or '',
-        bot_response=bot_response,
+        bot_response=response,
         status=status,
     )
 
 
-def build_topics_keyboard() -> ReplyKeyboardMarkup:
-    """Создаёт клавиатуру со всеми доступными темами."""
+def topics_keyboard() -> ReplyKeyboardMarkup:
     markup = ReplyKeyboardMarkup(resize_keyboard=True, row_width=2)
-    buttons = [KeyboardButton(topic.capitalize()) for topic in BOOKS_CATALOG]
-    markup.add(*buttons)
-    markup.add(KeyboardButton('❓ Помощь'), KeyboardButton('📋 Все темы'))
+    markup.add(*[KeyboardButton(t.capitalize()) for t in BOOKS_CATALOG])
+    markup.add(KeyboardButton(BTN_HELP), KeyboardButton(BTN_TOPICS))
     return markup
 
 
-# ── Обработчики команд ────────────────────────────────────────────────────────
+def reply(message: Message, text: str, status: str = 'answered') -> None:
+    bot.send_message(
+        message.chat.id, text,
+        parse_mode='Markdown',
+        disable_web_page_preview=True,
+        reply_markup=topics_keyboard(),
+    )
+    save_query(message, text, status)
+
 
 @bot.message_handler(commands=['start'])
 def handle_start(message: Message) -> None:
     name = message.from_user.first_name or 'читатель'
-    text = (
-        f'👋 Привет, *{name}*!\n\n'
-        '📚 Я — *Book Finder Bot*.\n'
-        'Помогу подобрать книги по любой теме.\n\n'
-        '➡️ Просто напиши тему, которая тебя интересует, '
-        'или выбери из кнопок ниже.\n\n'
-        '*Пример:* астрофизика, физика, история, психология…'
-    )
-    bot.send_message(message.chat.id, text, parse_mode='Markdown',
-                     reply_markup=build_topics_keyboard())
-    save_query(message, text)
+    reply(message, (
+        f'Привет, *{name}*!\n\n'
+        'Я — *AstroBook*. Помогу подобрать книги по любой теме.\n\n'
+        'Просто напиши тему или выбери её на клавиатуре ниже.\n\n'
+        '_Например: астрофизика, физика, история, психология…_'
+    ))
 
 
 @bot.message_handler(commands=['help'])
 def handle_help(message: Message) -> None:
     topics = ', '.join(BOOKS_CATALOG.keys())
-    text = (
-        '🆘 *Помощь*\n\n'
-        'Напиши название темы и я пришлю подборку книг с описаниями и ссылками.\n\n'
-        f'📌 *Доступные темы:*\n{topics}\n\n'
-        'Если не нашёл нужную тему — напиши запрос свободным текстом, '
-        'и я передам его в поддержку.'
-    )
-    bot.send_message(message.chat.id, text, parse_mode='Markdown',
-                     reply_markup=build_topics_keyboard())
-    save_query(message, text)
+    reply(message, (
+        '*Помощь*\n\n'
+        'Напиши тему — пришлю подборку книг с описаниями и ссылками.\n\n'
+        f'*Доступные темы:* {topics}\n\n'
+        'Если темы нет — твой запрос сохранится и попадёт в поддержку.'
+    ))
 
 
 @bot.message_handler(commands=['topics'])
 def handle_topics(message: Message) -> None:
-    lines = ['📋 *Все доступные темы:*\n']
-    for topic in BOOKS_CATALOG:
-        count = len(BOOKS_CATALOG[topic])
-        lines.append(f'• {topic.capitalize()} — {count} книги')
-    text = '\n'.join(lines)
-    bot.send_message(message.chat.id, text, parse_mode='Markdown',
-                     reply_markup=build_topics_keyboard())
-    save_query(message, text)
+    lines = ['*Все доступные темы:*\n']
+    for topic, books in BOOKS_CATALOG.items():
+        lines.append(f'• {topic.capitalize()} — {len(books)} книг')
+    reply(message, '\n'.join(lines))
 
-
-# ── Обработчик текстовых сообщений ───────────────────────────────────────────
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message: Message) -> None:
-    user_text = message.text.strip()
+    text = message.text.strip()
 
-    # Обработка кнопок меню
-    if user_text in ('❓ Помощь', '/help'):
+    if text in (BTN_HELP, '/help'):
         return handle_help(message)
-    if user_text in ('📋 Все темы', '/topics'):
+    if text in (BTN_TOPICS, '/topics'):
         return handle_topics(message)
 
-    # Поиск темы в сообщении пользователя
-    topic = find_topic(user_text)
-
+    topic = find_topic(text)
     if topic:
-        book_list = format_book_list(topic)
-        bot.send_message(
-            message.chat.id,
-            book_list,
-            parse_mode='Markdown',
-            disable_web_page_preview=True,
-            reply_markup=build_topics_keyboard(),
-        )
-        save_query(message, book_list)
-    else:
-        # Тема не найдена — передаём запрос в поддержку
-        response = (
-            '🤔 Не нашёл книги по запросу: *{query}*\n\n'
-            'Я сохранил твой вопрос и передал его в поддержку.\n'
-            'Скоро получишь ответ! 📩\n\n'
-            '💡 Попробуй одну из доступных тем:\n'
-            '{topics}'
-        ).format(
-            query=user_text,
-            topics=', '.join(BOOKS_CATALOG.keys()),
-        )
-        bot.send_message(message.chat.id, response, parse_mode='Markdown',
-                         reply_markup=build_topics_keyboard())
-        save_query(message, response, status='support')
+        reply(message, format_book_list(topic))
+        return
 
+    topics = ', '.join(BOOKS_CATALOG.keys())
+    reply(message, (
+        f'Не нашёл книги по запросу: *{text}*\n\n'
+        'Запрос сохранён и передан в поддержку.\n\n'
+        f'_Попробуй одну из тем:_ {topics}'
+    ), status='support')
 
-# ── Запуск бота ───────────────────────────────────────────────────────────────
 
 if __name__ == '__main__':
     sys.stdout.reconfigure(encoding='utf-8', errors='replace')
-    print('Book Finder Bot zapuschen...')
+    print('AstroBook started...')
     bot.infinity_polling(timeout=10, long_polling_timeout=5)
