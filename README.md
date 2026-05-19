@@ -1,9 +1,8 @@
 # AstroBook — Telegram-бот и веб-платформа для подбора книг о космосе
 
-![Python](https://img.shields.io/badge/Python-3.11-blue?style=flat-square&logo=python)
-![Django](https://img.shields.io/badge/Django-4.2-green?style=flat-square&logo=django)
-![Telegram](https://img.shields.io/badge/Telegram-Bot-blue?style=flat-square&logo=telegram)
-![SQLite](https://img.shields.io/badge/Database-SQLite-lightgrey?style=flat-square&logo=sqlite)
+Web-site: https://astrobook-web.onrender.com/
+Telegram bot: @books1_helper_bot
+https://astrobook-bot.onrender.com
 
 ---
 
