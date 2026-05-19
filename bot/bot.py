@@ -90,24 +90,37 @@ def handle_topics(message: Message) -> None:
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message: Message) -> None:
-    text = message.text.strip()
-
-    if text in (BTN_HELP, '/help'):
-        return handle_help(message)
-    if text in (BTN_TOPICS, '/topics'):
-        return handle_topics(message)
-
-    topic = find_topic(text)
-    if topic:
-        reply(message, format_book_list(topic))
+    # Обработка пустого ввода
+    if not message.text or not message.text.strip():
+        bot.send_message(
+            message.chat.id,
+            '⚠️ Пожалуйста, напиши название темы.',
+            reply_markup=build_topics_inline()
+        )
         return
 
-    topics = ', '.join(BOOKS_CATALOG.keys())
-    reply(message, (
-        f'Не нашёл книги по запросу: *{text}*\n\n'
-        'Запрос сохранён и передан в поддержку.\n\n'
-        f'_Попробуй одну из тем:_ {topics}'
-    ), status='support')
+    topic = find_topic(message.text)
+    if topic:
+        book_list = format_book_list(topic)
+        bot.send_message(
+            message.chat.id, book_list,
+            parse_mode='Markdown',
+            disable_web_page_preview=True,
+            reply_markup=build_back_button(),
+        )
+        save_query(message, book_list)
+    else:
+        response = (
+            f'🤔 Не нашёл книги по запросу: *{message.text}*\n\n'
+            '📩 Вопрос передан в поддержку — скоро ответим!\n\n'
+            '👇 Попробуй выбрать тему:'
+        )
+        bot.send_message(
+            message.chat.id, response,
+            parse_mode='Markdown',
+            reply_markup=build_topics_inline(),
+        )
+        save_query(message, response, status='support')
 
 
 class _HealthHandler(BaseHTTPRequestHandler):
