@@ -8,7 +8,6 @@ import telebot
 from telebot.types import Message, ReplyKeyboardMarkup, KeyboardButton
 from dotenv import load_dotenv
 
-# ── Настройка Django до первого импорта моделей ──────────────────────────────
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if BASE_DIR not in sys.path:
     sys.path.insert(0, BASE_DIR)
@@ -90,7 +89,7 @@ def handle_topics(message: Message) -> None:
 
 @bot.message_handler(content_types=['text'])
 def handle_text(message: Message) -> None:
-    # Обработка пустого ввода
+
     if not message.text or not message.text.strip():
         bot.send_message(
             message.chat.id,

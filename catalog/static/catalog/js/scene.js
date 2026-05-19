@@ -7,7 +7,7 @@ if (canvas && window.ASSETS) {
 
 function initScene(canvas, ASSETS) {
   const isMobile = window.matchMedia('(max-width: 820px)').matches;
-  // На десктопе Юпитер сдвинут вправо, на мобиле — по центру
+
   const jupiterX = isMobile ? 0 : 14;
 
   // ----- Renderer -----
@@ -22,7 +22,7 @@ function initScene(canvas, ASSETS) {
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 0.95;
 
-  // ----- Scene & camera -----
+
   const scene = new THREE.Scene();
 
   const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 2000);
@@ -32,14 +32,13 @@ function initScene(canvas, ASSETS) {
   const loader = new THREE.TextureLoader();
   const load = (url) => new Promise((res, rej) => loader.load(url, res, undefined, rej));
 
-  // ----- Lights -----
-  // Ambient — лёгкая заливка, чтобы Луна не была чёрной
+
   scene.add(new THREE.AmbientLight(0x4a5468, 0.55));
-  // Солнце — направленный свет сбоку, даёт серп тени на Юпитере
+
   const sun = new THREE.DirectionalLight(0xfff1d6, 1.6);
   sun.position.set(-50, 30, 25);
   scene.add(sun);
-  // Тёплый рим-свет от Юпитера на поверхность Луны
+
   const rim = new THREE.PointLight(0xf4a85a, 1.6, 220, 1.5);
   rim.position.set(0, 18, -25);
   scene.add(rim);
@@ -77,7 +76,7 @@ function initScene(canvas, ASSETS) {
       })
     );
     jupiter.position.set(jupiterX, 2, -62);
-    // Заметный наклон оси (как у настоящего Сатурна — для драматичности)
+
     jupiter.rotation.z = THREE.MathUtils.degToRad(18);
     jupiter.rotation.x = THREE.MathUtils.degToRad(-8);
     scene.add(jupiter);
@@ -109,10 +108,10 @@ function initScene(canvas, ASSETS) {
       })
     );
     ground.rotation.x = -Math.PI / 2;
-    ground.position.y = -1; // поднята так, чтобы нижняя половина Юпитера ушла за горизонт
+    ground.position.y = -1; 
     scene.add(ground);
 
-    // Камера смотрит на сторону Юпитера — горизонт по центру кадра
+
     const lookTarget = new THREE.Vector3(jupiterX * 0.5, 5, jupiter.position.z);
     camera.lookAt(lookTarget);
 
@@ -147,7 +146,7 @@ function initScene(canvas, ASSETS) {
         THREE.MathUtils.degToRad(-35),
         THREE.MathUtils.degToRad(20)
       );
-      // Сохраняем скорость для инерции
+
       velX = dx * Math.PI * 1.4;
       velY = dy * Math.PI * 1.0;
     }
@@ -165,7 +164,6 @@ function initScene(canvas, ASSETS) {
     window.addEventListener('pointerup', onPointerUp);
     window.addEventListener('pointercancel', onPointerUp);
 
-    // ----- Resize -----
     function resize() {
       const w = canvas.clientWidth;
       const h = canvas.clientHeight;
@@ -176,7 +174,7 @@ function initScene(canvas, ASSETS) {
     resize();
     window.addEventListener('resize', resize);
 
-    // ----- Animate -----
+
     let raf;
     const clock = new THREE.Clock();
     function tick() {
@@ -184,7 +182,7 @@ function initScene(canvas, ASSETS) {
       if (dragging) {
         // во время перетаскивания вращение задаётся курсором, авто-крутим не нужно
       } else if (Math.abs(velX) > 0.0005 || Math.abs(velY) > 0.0005) {
-        // инерция после отпускания — плавно гасим скорость
+
         jupiter.rotation.y += velX;
         jupiter.rotation.x = THREE.MathUtils.clamp(
           jupiter.rotation.x + velY,
@@ -201,7 +199,7 @@ function initScene(canvas, ASSETS) {
     }
     tick();
 
-    // Останавливаем рендер, когда вкладка скрыта
+    // Останавливаем рендер
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) cancelAnimationFrame(raf);
       else tick();

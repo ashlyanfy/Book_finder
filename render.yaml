@@ -5,7 +5,6 @@ databases:
     user: astrobook
 
 services:
-  # ── Сайт (Django) ────────────────────────────────────────────
   - type: web
     name: astrobook-web
     runtime: python
@@ -28,9 +27,8 @@ services:
           name: astrobook-db
           property: connectionString
       - key: BOT_TOKEN
-        sync: false   # значение задаёшь вручную в дашборде
+        sync: false  
 
-  # ── Telegram-бот ─────────────────────────────────────────────
   - type: web
     name: astrobook-bot
     runtime: python

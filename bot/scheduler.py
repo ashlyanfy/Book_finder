@@ -89,7 +89,6 @@ def start_scheduler():
     """Запускает планировщик задач."""
     scheduler = BackgroundScheduler(timezone='Asia/Almaty')
 
-    # Проверка напоминаний — каждую минуту
     scheduler.add_job(
         send_pending_reminders,
         trigger=IntervalTrigger(minutes=1),
@@ -97,7 +96,6 @@ def start_scheduler():
         replace_existing=True,
     )
 
-    # Проверка ответов поддержки — каждые 10 секунд
     scheduler.add_job(
         send_pending_admin_replies,
         trigger=IntervalTrigger(seconds=10),
