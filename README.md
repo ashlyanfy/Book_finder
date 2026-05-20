@@ -1,121 +1,121 @@
-# AstroBook — Telegram-бот и веб-платформа для подбора книг о космосе
+# AstroBook — A Telegram Bot and Web Platform for Selecting Books About Space
 
-Web-site: https://astrobook-web.onrender.com/
+Website: https://astrobook-web.onrender.com/
 Telegram bot: @books1_helper_bot
 https://astrobook-bot.onrender.com
 
 ---
 
-## Описание проекта
+## Project Description
 
-**AstroBook** — это гибридный чат-бот с веб-платформой для подбора книг по астрономии, астрофизике и космологии. Пользователь выбирает интересующую тему через Telegram-бота или веб-сайт и получает каталог книг с описаниями, авторами и ссылками для чтения.
+**AstroBook** is a hybrid chatbot and web platform for selecting books on astronomy, astrophysics, and cosmology. Users select a topic of interest through a Telegram bot or website and receive a catalog of books with descriptions, authors, and links for reading.
 
-Проект демонстрирует интеграцию Telegram Bot API с Django, работу планировщика задач, хранение данных в базе и полноценный веб-интерфейс с 3D-графикой.
-
----
-
-##  Возможности
-
-###  Telegram-бот
-- Команды `/start`, `/help`, `/topics`, `/remind`
-- Inline-кнопки для выбора темы
-- Каталог книг с описаниями и ссылками
-- Напоминания о чтении по расписанию (ежедневно / еженедельно)
-- Сохранение всех запросов в базу данных
-- Передача сложных вопросов в поддержку
-- Обработка пустого ввода и неизвестных команд
-
-###  Веб-сайт
-- Лендинг с интерактивной 3D-планетой (Three.js)
-- Каталог книг с фильтрацией по теме
-- Переключатель языка RU / EN
-- Адаптивный дизайн
-
-###  Панель управления
-- Статистика: всего запросов, уникальные пользователи, отвечено, ожидает
-- Топ-5 самых популярных запросов
-- Таблица всех запросов с фильтрацией по статусу
-- Ответ пользователям прямо из браузера — ответ автоматически отправляется в Telegram
-
-###  Фоновые задачи (APScheduler)
-- Проверка напоминаний каждую минуту
-- Автоматическая отправка ответов поддержки каждые 10 секунд
+The project demonstrates the integration of the Telegram Bot API with Django, a task scheduler, database storage, and a fully functional web interface with 3D graphics.
 
 ---
 
-##  Каталог книг
+## Features
 
-| Тема | Кол-во книг |
+### Telegram bot
+- Commands `/start`, `/help`, `/topics`, `/remind`
+- Inline buttons for selecting a topic
+- Book catalog with descriptions and links
+- Scheduled reading reminders (daily/weekly)
+- Saving all requests to the database
+- Forwarding complex questions to support
+- Handling empty input and unknown commands
+
+### Website
+- Landing page with an interactive 3D planet (Three.js)
+- Book catalog with topic filtering
+- Language switcher RU / EN
+- Responsive design
+
+### Control panel
+- Statistics: total requests, unique users, answered, pending
+- Top 5 most popular requests
+- Table of all requests filtered by status
+- Reply to users directly from the browser – the response is automatically sent to Telegram
+
+### Background tasks (APScheduler)
+- Check reminders every minute
+- Automatically send support replies every 10 seconds
+
+---
+
+## Book Catalog
+
+| Topic | Number of books |
 |---|---|
-| 🌟 Астрофизика | 6 |
-| 🌌 Космология | 7 |
-| 🔭 Астрономия | 6 |
-| 🕳️ Чёрные дыры | 4 |
-| 👨‍🚀 Космос и человек | 5 |
-| ⚛️ Квантовая физика | 3 |
-| 🌀 Теория относительности | 3 |
-| 🪐 Планеты и Солнечная система | 4 |
-| **Итого** | **38 книг** |
+| 🌟 Astrophysics | 6 |
+| 🌌 Cosmology | 7 |
+| 🔭 Astronomy | 6 |
+| 🕳️ Black Holes | 4 |
+| 👨‍🚀 Space and Humanity | 5 |
+| ⚛️ Quantum Physics | 3 |
+| 🌀 Theory of Relativity | 3 |
+| 🪐 Planets and the Solar System | 4 |
+| **Total** | **38 books** |
 
 ---
 
-##  Структура проекта
+## Project Structure
 book_finder/
-├── manage.py                  # Утилита управления Django
-├── requirements.txt           # Зависимости проекта
-├── .env                       # Переменные окружения (не коммитить)
-├── README.md                  # Документация
-├── db.sqlite3                 # База данных (создаётся автоматически)
+├── manage.py # Django management utility
+├── requirements.txt # Project dependencies
+├── .env # Environment variables (do not commit)
+├── README.md # Documentation
+├── db.sqlite3 # Database (created automatically)
 │
-├── book_finder/               # Настройки Django
-│   ├── settings.py            # Конфигурация проекта
-│   ├── urls.py                # Главные маршруты
-│   └── wsgi.py                # WSGI-точка входа
+├── book_finder/ # Django settings
+│ ├── settings.py # Project configuration
+│ ├── urls.py # Main routes
+│ └── wsgi.py # WSGI entry point
 │
-├── catalog/                   # Django-приложение
-│   ├── models.py              # Модели: UserQuery, Reminder, Notification
-│   ├── admin.py               # Настройка Django Admin
-│   ├── views.py               # Контроллеры страниц
-│   ├── urls.py                # Маршруты приложения
-│   ├── migrations/            # Миграции базы данных
-│   └── templates/
-│       └── catalog/
-│           ├── index.html     # Лендинг с 3D-планетой
-│           ├── books.html     # Каталог книг
-│           └── dashboard.html # Панель управления
+├── catalog/ # Django Application
+│ ├── models.py # Models: UserQuery, Reminder, Notification
+│ ├── admin.py # Django Admin Setup
+│ ├── views.py # Page Controllers
+│ ├── urls.py # Application Routes
+│ ├── migrations/ # Database Migrations
+│ └── templates/
+│ └── catalog/
+│ ├── index.html # Landing Page with 3D Planet
+│ ├── books.html # Book Catalog
+│ └── dashboard.html # Control Panel
 │
-└── bot/                       # Telegram-бот
-├── bot.py                 # Основной файл бота
-├── books_data.py          # Каталог книг и функции поиска
-└── scheduler.py           # Планировщик задач (APScheduler)
+└── bot/ # Telegram bot
+├── bot.py # Main bot file
+├── books_data.py # Book catalog and search functions
+└── scheduler.py # Task scheduler (APScheduler)
 
 ---
 
-## ⚙️ Технологии
+## ⚙️ Technologies
 
-| Технология | Версия | Назначение |
+| Technology | Version | Purpose |
 |---|---|---|
-| Python | 3.11 | Основной язык |
-| Django | 4.2.7 | Веб-фреймворк, ORM, Admin |
+| Python | 3.11 | Primary language |
+| Django | 4.2.7 | Web framework, ORM, Admin |
 | pyTelegramBotAPI | 4.14.0 | Telegram Bot API |
-| APScheduler | 3.10.4 | Планировщик фоновых задач |
-| SQLite | — | База данных |
-| Three.js | r128 | 3D-графика на сайте |
-| python-dotenv | 1.0.0 | Переменные окружения |
-| requests | 2.31.0 | HTTP-запросы |
+| APScheduler | 3.10.4 | Background task scheduler |
+| SQLite | — | Database |
+| Three.js | r128 | 3D graphics on the website |
+| python-dotenv | 1.0.0 | Environment Variables |
+| Requests | 2.31.0 | HTTP Requests |
 
 ---
 
-## 🔧 Установка и запуск
+## 🔧 Installation and Run
 
-### 1. Клонировать репозиторий
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/username/book_finder.git
 cd book_finder
 ```
 
-### 2. Создать виртуальное окружение
+### 2. Create a virtual environment
 
 ```bash
 # Windows
@@ -127,49 +127,49 @@ python -m venv venv
 source venv/bin/activate
 ```
 
-### 3. Установить зависимости
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Создать файл `.env`
+### 4. Create a `.env` file
 
-Создать файл `.env` в корне проекта:
+Create a `.env` file in the root Project:
 
 ```env
-BOT_TOKEN=твой_токен_от_BotFather
-DJANGO_SECRET_KEY=твой_секретный_ключ
+BOT_TOKEN=your_token_from_BotFather
+DJANGO_SECRET_KEY=your_secret_key
 DEBUG=True
 ```
 
-Получить токен бота можно у [@BotFather](https://t.me/BotFather) в Telegram.
+You can get a bot token from [@BotFather](https://t.me/BotFather) on Telegram.
 
-Сгенерировать секретный ключ Django:
+Generate a Django secret key:
 ```bash
 python -c "import secrets; print(secrets.token_urlsafe(50))"
 ```
 
-### 5. Применить миграции
+### 5. Apply migrations
 
 ```bash
 python manage.py makemigrations catalog
 python manage.py migrate
 ```
 
-### 6. Создать администратора
+### 6. Create an administrator
 
 ```bash
 python manage.py createsuperuser
 ```
 
-### 7. Запустить сервер (Терминал 1)
+### 7. Start the server (Terminal 1)
 
 ```bash
 python manage.py runserver
 ```
 
-### 8. Запустить бота (Терминал 2)
+### 8. Run the bot (Terminal 2)
 
 ```bash
 python bot/bot.py
@@ -177,97 +177,15 @@ python bot/bot.py
 
 ---
 
-
-## 💬 Примеры работы бота
-Пользователь: /start
-Бот: 👋 Привет! Я AstroBook Bot — помогу найти книги по астрономии.
-[Показывает inline-кнопки с темами]
-Пользователь: [нажимает кнопку 🌟 Астрофизика]
-Бот: 📚 Книги по теме: Астрофизика
-1. Краткая история времени (1988)
-✍️ Стивен Хокинг
-📖 От Большого взрыва до чёрных дыр...
-🔗 Читать / купить
-Пользователь: хочу про космос
-Бот: 📚 Книги по теме: Астрофизика
-[выдаёт каталог по ключевому слову]
-Пользователь: квантовая механика
-Бот: 📚 Книги по теме: Квантовая физика
-[выдаёт подборку]
-Пользователь: /remind
-Бот: 🔔 Напоминания о чтении
-[Показывает кнопки: каждый день / каждую неделю / тест]
-Пользователь: привет как дела
-Бот: 🤔 Не нашёл книги по запросу: привет как дела
-📩 Вопрос передан в поддержку — скоро ответим!
-
----
-
-## База данных
-
-### Модель `UserQuery`
-Хранит все запросы пользователей из Telegram-бота.
-
-| Поле | Тип | Описание |
-|---|---|---|
-| telegram_id | BigInteger | ID пользователя в Telegram |
-| username | CharField | Username пользователя |
-| first_name | CharField | Имя пользователя |
-| query_text | TextField | Текст запроса |
-| bot_response | TextField | Ответ бота |
-| admin_reply | TextField | Ответ администратора |
-| reply_sent | BooleanField | Отправлен ли ответ в Telegram |
-| status | CharField | answered / pending / support |
-| created_at | DateTimeField | Дата и время запроса |
-
-### Модель `Reminder`
-Хранит напоминания пользователей.
-
-| Поле | Тип | Описание |
-|---|---|---|
-| telegram_id | BigInteger | ID пользователя |
-| message | TextField | Текст напоминания |
-| send_at | DateTimeField | Время отправки |
-| repeat | CharField | once / daily / weekly |
-| active | BooleanField | Активно ли напоминание |
-
----
-
-##  Как работает связь бота и админки
-Пользователь пишет в Telegram
-↓
-bot/bot.py — обрабатывает сообщение
-↓
-catalog/models.py — сохраняет в БД (статус: support)
-↓
-Администратор открывает /admin/ или /dashboard/
-↓
-Пишет ответ в поле admin_reply и сохраняет
-↓
-bot/scheduler.py — каждые 10 сек проверяет БД
-↓
-Находит reply_sent=False — отправляет ответ в Telegram
-↓
-Пользователь получает ответ 📩
-
----
-
-## Обработка ошибок
-
-| Ситуация | Реакция бота |
-|---|---|
-| Пустое сообщение | Просит написать название темы |
-| Неизвестная команда | Передаёт в поддержку, показывает темы |
-| Тема не найдена | Сохраняет запрос со статусом `support` |
-| Ошибка отправки напоминания | Логирует ошибку, продолжает работу |
-
----
-
-## Автор
-
-Проект разработан в рамках дисциплины **«Программирование на Python»**.
-
----
-
-##  Лицензия
-Проект создан в учебных целях.
+## 💬 Bot examples
+User: /start
+Bot: 👋 Hello! I'm AstroBook Bot — I'll help you find books on astronomy.
+[Shows inline buttons with topics]
+User: [clicks the 🌟 Astrophysics button]
+Bot: 📚 Books on the topic: Astrophysics
+1. A Brief History of Time (1988)
+✍️ Stephen Hawking
+📖 From the Big Bang to Black Holes...
+🔗 Read / Buy
+User: I want to read about space
+Bot: 📚 Books
